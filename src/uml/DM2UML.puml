@@ -1,0 +1,47 @@
+@startuml ServeurWeb
+
+class ServeurWeb {
+     + repondre(RequeteHttp): int
+}
+
+class Proxy
+
+class RequeteHttp {
+     + getUrl(): String
+}
+note right: Design Pattern Composite
+
+interface Affichable {
+     + afficher(): String
+}
+
+class Url {
+     - path: String
+     + Url(String)
+}
+
+class Header {
+     - headers: Map<String, String>
+     + ajouterHeader(String, String)
+}
+
+class Body {
+     - content: String
+     + Body(String)
+}
+
+RequeteHttp .up.> Affichable
+Url .up.> Affichable
+Header .up.> Affichable
+Body .up.> Affichable
+
+Url -down-* RequeteHttp: url
+Header -down-* RequeteHttp: header
+Body -down-* RequeteHttp: body
+
+Proxy -up-|> ServeurWeb
+note "Design Pattern Proxy" as NoteProxy
+Proxy .right. NoteProxy
+ServeurWeb .right. NoteProxy
+
+@enduml
