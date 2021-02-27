@@ -1,10 +1,14 @@
 @startuml ServeurWeb
 
-class ServeurWeb {
+interface IServeurWeb {
      + repondre(RequeteHttp): int
 }
 
-class Proxy
+class ServeurWeb 
+
+class ServeurWebProxy {
+     - serveurWeb: ServeurWeb
+}
 
 class RequeteHttp {
      + getUrl(): String
@@ -38,10 +42,12 @@ Body .up.> Affichable
 Url -down-* RequeteHttp: url
 Header -down-* RequeteHttp: header
 Body -down-* RequeteHttp: body
-
-Proxy -up-|> ServeurWeb
+ 
+ServeurWeb <-right- ServeurWebProxy : use
+ServeurWeb -up-|> IServeurWeb
+ServeurWebProxy -up-|> IServeurWeb
 note "Design Pattern Proxy" as NoteProxy
-Proxy .right. NoteProxy
-ServeurWeb .right. NoteProxy
+ServeurWebProxy .down. NoteProxy
+ServeurWeb .down. NoteProxy
 
 @enduml

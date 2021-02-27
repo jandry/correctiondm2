@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 public class ServeurWebTest {
 
-    private ServeurWeb serveur = new Proxy();
+    private IServeurWeb serveur = new ServeurWebProxy();
 
     @Test
     public void test500() {
