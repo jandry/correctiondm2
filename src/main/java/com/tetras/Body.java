@@ -1,6 +1,6 @@
 package com.tetras;
 
-public class Body implements Affichable {
+public class Body implements IAffichable {
     private String body = "";
 
     public Body(String body) {

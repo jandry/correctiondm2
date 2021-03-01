@@ -1,31 +1,43 @@
 package com.tetras;
 
-public class RequetteHttp implements Affichable {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
-    private Body body;
-    private Header header;
-    private Url url;
+public class RequetteHttp implements IAffichable {
+
+    List<IAffichable> list = new ArrayList<>();
 
     public RequetteHttp(String url, String body, Header header) {
-        this.url = new Url(url);
-        this.body = new Body(body);
-        this.header = header;
+        ajouter(new Url(url));
+        ajouter(header);
+        ajouter(new Body(body));
     }
 
     @Override
     public String afficher() {
-        String result = "";
-        if (url != null)
-            result += url.afficher() + System.lineSeparator();
-        if (header != null)
-            result += header.afficher() + System.lineSeparator();
-        if (body != null)
-            result += body.afficher() + System.lineSeparator();
+        String result = list.stream().map(IAffichable::afficher).collect(Collectors.joining(System.lineSeparator()));
         return result;
     }
 
     public String getUrl() {
-        return url.afficher();
+        String result = "";
+        if (list.get(0) != null && list.get(0) instanceof Url) {
+            result = list.get(0).afficher();
+        }
+        return result;
+    }
+
+    public void ajouter(IAffichable elementRequete) {
+        if (elementRequete instanceof Url) {
+            list.add(0, elementRequete);
+        } else if (elementRequete instanceof Header) {
+            list.add(1, elementRequete);
+        } else if (elementRequete instanceof Body) {
+            list.add(2, elementRequete);
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
 }

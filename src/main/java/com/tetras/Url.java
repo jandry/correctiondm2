@@ -1,6 +1,6 @@
 package com.tetras;
 
-public class Url implements Affichable {
+public class Url implements IAffichable {
 
     private String url = "/";
 

@@ -15,8 +15,11 @@ class RequeteHttp {
 }
 note right: Design Pattern Composite
 
-interface Affichable {
+interface IAffichable {
+     - list: List<IAffichable>
      + afficher(): String
+     + ajouter(IAffichable)
+     + getUrl: String
 }
 
 class Url {
@@ -34,10 +37,10 @@ class Body {
      + Body(String)
 }
 
-RequeteHttp .up.> Affichable
-Url .up.> Affichable
-Header .up.> Affichable
-Body .up.> Affichable
+RequeteHttp .up.> IAffichable
+Url .up.> IAffichable
+Header .up.> IAffichable
+Body .up.> IAffichable
 
 Url -down-* RequeteHttp: url
 Header -down-* RequeteHttp: header

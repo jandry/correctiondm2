@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Header implements Affichable {
+public class Header implements IAffichable {
 
     Map<String, String> headers = new HashMap<>();
 

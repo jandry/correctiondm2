@@ -1,5 +1,5 @@
 package com.tetras;
 
-public interface Affichable {
+public interface IAffichable {
     public String afficher();
 }

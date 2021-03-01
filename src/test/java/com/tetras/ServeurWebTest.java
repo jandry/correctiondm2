@@ -1,6 +1,7 @@
 package com.tetras;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -46,5 +47,22 @@ public class ServeurWebTest {
         assertEquals("/url" + System.lineSeparator() + "{cle=valeur}" + System.lineSeparator() + "body"
                 + System.lineSeparator(), requete.afficher());
 
+    }
+
+    @Test
+    public void testIllegalArgumentException() {
+        Header header = new Header();
+        header.ajouterHeader("cle", "valeur");
+        RequetteHttp requete = new RequetteHttp("/url", "body", header);
+
+        IAffichable affichable = new IAffichable() {
+            public String afficher() {
+                return "toto";
+            }
+        };
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            requete.ajouter(affichable);
+        });
     }
 }
