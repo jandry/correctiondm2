@@ -11,15 +11,14 @@ class ServeurWebProxy {
 }
 
 class RequeteHttp {
+     - list: List<IAffichable>
      + getUrl(): String
+     + ajouter(IAffichable)
 }
 note right: Design Pattern Composite
 
 interface IAffichable {
-     - list: List<IAffichable>
      + afficher(): String
-     + ajouter(IAffichable)
-     + getUrl: String
 }
 
 class Url {
@@ -37,18 +36,18 @@ class Body {
      + Body(String)
 }
 
-RequeteHttp .up.> IAffichable
-Url .up.> IAffichable
-Header .up.> IAffichable
-Body .up.> IAffichable
+RequeteHttp .up.|> IAffichable
+Url .up.|> IAffichable
+Header .up.|> IAffichable
+Body .up.|> IAffichable
 
 Url -down-* RequeteHttp: url
 Header -down-* RequeteHttp: header
 Body -down-* RequeteHttp: body
  
 ServeurWeb <-right- ServeurWebProxy : use
-ServeurWeb -up-|> IServeurWeb
-ServeurWebProxy -up-|> IServeurWeb
+ServeurWeb .up.|> IServeurWeb
+ServeurWebProxy .up.|> IServeurWeb
 note "Design Pattern Proxy" as NoteProxy
 ServeurWebProxy .down. NoteProxy
 ServeurWeb .down. NoteProxy
